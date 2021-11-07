@@ -1,0 +1,22 @@
+<div id="modal_body" class="modal-body align-middle">
+	<div data-ng-form="inp_frm">
+		<table class="mb-3">
+			<tr>
+				<th class="text-right">Name:</th>
+				<td><input class="js-tabindex" type="text" data-ng-model="org_name" autofocus tabindex="1"></td>
+				<th class="text-right">Website:</th>
+				<td><input class="js-tabindex" type="text" data-ng-model="org_website" tabindex="3"></td>
+			</tr>
+			<tr>
+				<th class="text-right text-nowrap">Primary Contact:</th>
+				<td><select data-ng-model="org_prim_contact" data-ng-options="cnt.cnt_id as cnt.cnt_text for cnt in cnt_sources" tabindex="2"></td>
+				<th class="text-right">Address:</th>
+				<td><input class="js-tabindex" type="text" data-ng-model="org_address" tabindex="4"></td>
+			</tr>
+		</table>
+		<div ng-messages="inp_frm.$error" class="text-danger">
+		</div>
+	</div>
+	<button class="btn btn-primary" data-ng-click="ok()" tabindex="6">OK</button>
+	<button class="btn btn-secondary" data-ng-click="cancel()" tabindex="7">Cancel</button>
+</div>

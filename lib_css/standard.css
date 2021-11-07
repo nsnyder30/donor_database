@@ -1,0 +1,173 @@
+/*------------------------------------------------------PAGE HEADER-------------------------------------------------------*/
+.c-banner{
+    width: 100%;
+    background-color: #444;
+    color: #FFF;
+    padding: 2px;	
+}
+
+.c-button {
+    background-color: #222;
+    color: #FFF;	
+	cursor: pointer;
+}
+
+.c-button:hover, .c-button:focus {
+	background-color: #3e8e41;
+}
+
+/*----------------------------------------------------DROPDOWN BUTTON-----------------------------------------------------*/
+#header {
+	position: relative;
+	width: 100%;
+	padding: 0px 0px 30px 0px;
+}
+#header_image {
+	float: left;
+}
+#header_menu {
+	background-color: #333;
+	bottom: 0;
+	width: 100%;
+	border-radius: 5px;
+	clear: both;
+}
+.clearfix::after{
+	content: "";
+	clear: both;
+	display: table;
+}
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------TABULAR DATA------------------------------------------------------*/
+.c-table{
+	border-collapse: collapse;
+}
+
+.c-table__header-row{
+	
+}
+
+.c-table__col-header{
+	background-color: #006;
+	color: #FFF;
+	border: 0.1px solid gray;
+	font-weight: bold;
+	text-align: center;
+}
+
+.c-bstable_header--sortable{
+	text-align: center;
+	white-space: nowrap;
+	cursor: pointer;
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	   -khtml-user-select: none;
+	     -moz-user-select: none; 
+		  -ms-user-select: none;
+		      user-select: none;
+}
+
+.c-table__cell{border: 0.1px solid black;}
+.c-table__cell--button{text-align: center;}
+
+.c-table__input--text{border: 0px;}
+
+.c-table__btn {
+	font-size: 16px;
+	line-height: 0px;
+}
+.c-table__btn--small{height:24px;}
+
+.c-link--nostyle{
+	text-decoration: none;
+}
+
+table caption{
+	caption-side: top;
+	font-size: 18px;
+	text-align: left;
+}
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*------------------------------------------------BOOTSTARP MODIFICATIONS-------------------------------------------------*/
+.navbar--nopad{padding: 0 !important;}
+.nav-link:hover, .nav-link:focus{background-color:#3e8e41;}
+.overflow-auto{
+	height:500px;
+	overflow-y: scroll;
+}
+.table td, .table th {
+	padding: 0.25rem;
+}
+.table .thead-dark th {
+	background-color: #264675;
+}
+.table .thead-dark .a-clickable:hover {
+	background-color: #e0ffff;
+	color: #000;
+} 
+
+.border-gray {border-color: #CCC !important;}
+.border-thin {border-width: 0.1px !important;}
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*---------------------------------------------------GENERIC ATTRIBUTES---------------------------------------------------*/
+.a-corners--rounded-mid{
+	border-radius: 5px;
+}
+
+.a-color--white{color: #FFF !important;}
+
+.a-clickable {cursor: pointer;}
+.a-clickable:hover, .a-clickable:hover a {
+	background-color: #666;
+	color: #FFF;
+}
+
+.a-text--noselect {
+	-webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	   -khtml-user-select: none;
+	     -moz-user-select: none; 
+		  -ms-user-select: none;
+		      user-select: none;
+}
+
+.a-compress--cell {
+	width: 1%;
+}
+.hvr-bg-lightyellow:hover {
+	background-color: #FF9;
+}
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*------------------------------------------------ANGULARJS MODIFICATIONS-------------------------------------------------*/
+.modal-content {
+	width: fit-content;
+}
+/*------------------------------------------------------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------UTILIY CLASSES-----------------------------------------------------*/
+.a-bgcolor--black{background-color: #000;}
+.a-bgcolor--darkblue{background-color: #1f4e78;}
+.a-bgcolor--gray{background-color: #CCC;}
+.a-color--yellow{color: #FF0;}
+.a-color--blue{color: #00F;}
+.a-color--green{color: 9F9;}
+.a-color--red{color: #F00;}
+.a-color--white{color: #FFF;}
+
+.a-clickable{cursor: pointer;}
+.a-font--bold{font-weight: bold;}
+.a-font--underline{text-decoration:underline;}
+
+.a-font--large{font-size:18px;}
+.a-font--mid{font-size:14px;}
+.a-font--small{font-size:12px;}
+/*------------------------------------------------------------------------------------------------------------------------*/

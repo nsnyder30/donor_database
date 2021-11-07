@@ -1,0 +1,11 @@
+﻿Payment ID,Charge Time,Donation Amount,FB Fee,Net Payout Amount,Payout Currency,Sender Currency,Tax Amount,Tax USD Amount,Charge Action Type,Charge Date,First Name,Last Name,Email Address,Campaign ID,Fundraiser Title,Source Name
+4.01E+15,1624849284,90,0,90,USD,USD,0,0,S,5/3/2020,Porfirio,Hersey,porfirio.hersey@nowhere.com,2.16E+15,City Fair,fundraiser
+4.02E+15,1625339909,5,0,5,USD,USD,0,0,S,12/24/2021,Angel,Mahoney,angel.mahoney@nowhere.com,5.83E+14,City Fair,fundraiser
+4.09E+15,1625710901,60,0,60,USD,USD,0,0,S,4/30/2021,Luther,Wire,luther.wire@nowhere.com,2.16E+15,City Fair,fundraiser
+4.14E+15,1626230014,90,0,90,USD,USD,0,0,S,5/27/2020,Phuong,Triggs,phuong.triggs@nowhere.com,4.17E+15,Raffle,fundraiser
+4.34E+15,1626653536,95,0,95,USD,USD,0,0,S,4/30/2020,Marlin,Maples,marlin.maples@nowhere.com,2.16E+15,Birthday Fundraiser,fundraiser
+4.05E+15,1627041052,15,0,15,USD,USD,0,0,S,2/27/2021,Marlin,Maples,marlin.maples@nowhere.com,2.16E+15,Raffle,fundraiser
+4.05E+15,1627041052,80,0,80,USD,USD,0,0,S,10/29/2021,Norbert,Mcaleer,norbert.mcaleer@nowhere.com,2.16E+15,Raffle,fundraiser
+4.05E+15,1627041052,40,0,40,USD,USD,0,0,S,7/9/2021,Patti,Krueger,patti.krueger@nowhere.com,2.16E+15,City Fair,fundraiser
+4.05E+15,1627041052,30,0,30,USD,USD,0,0,S,3/11/2021,Kelly,Coddington,kelly.coddington@nowhere.com,2.16E+15,City Fair,fundraiser
+4.05E+15,1627041052,85,0,85,USD,USD,0,0,S,6/15/2021,Phuong,Triggs,phuong.triggs@nowhere.com,2.16E+15,Raffle,fundraiser
