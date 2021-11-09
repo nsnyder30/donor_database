@@ -12,6 +12,7 @@ This app was designed to run on a XAMPP or LAMP stack. If you don't already have
  - Import setup/donor_db.sql into your new database
  - Create a user in your MySQL application with the same name as the "user" parameter and the same password as the "password" parameter in your connections.ini file
  - Grant the user privileges to access your uploaded donor database
+ - Ensure all php extensions are installed and enabled in your php.ini (at minimum you will need extension=mysqli and extension=pdo_mysql)
 
 Your donor database application should now be accessible at http://127.0.0.1/donor_database. The default username and password are:
 user: test_user
