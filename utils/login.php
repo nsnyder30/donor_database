@@ -12,12 +12,12 @@ $login_fail = '';
 /*-----------------------------------LOAD PAGE INIT, LOGOUT CHECK, QUERY EXISTING USERS-----------------------------------*/
 include($_SERVER['DOCUMENT_ROOT'] . '/donor_database/includes/page_init.php');
 if(isset($_GET['logout'])){session_destroy();}
-$ds_spl = new dataSource('db_user');
+$ds = new dataSource('db_user');
 $user_list = array();
 $query = "SELECT usr_username 
 			FROM db_users";
-$ds_spl->execQuery($query);
-while($ds_spl-> result != FALSE && $data = $ds_spl->fetchArray())
+$ds->execQuery($query);
+while($ds-> result != FALSE && $data = $ds->fetchArray())
 {
 	$user_list[] = $data['usr_username'];
 }
@@ -37,8 +37,8 @@ if(count(array_intersect_key($_POST, array_flip(array('submitted', 'username', '
 	$params = array(array('query_key' => 0, 
 						  'params' => array('username' => $user, 
 											'password' => $password)));
-	$ds_spl->execQuery(array($query), TRUE, $params);
-	while($ds_spl->result != FALSE && $data = $ds_spl->fetchArray())
+	$ds->execQuery(array($query), TRUE, $params);
+	while($ds->result != FALSE && $data = $ds->fetchArray())
 	{
 		$_SESSION['ddb_user'] = $user;
 		$_SESSION['permissions'] = array_merge($_SESSION['permissions'], explode(',', $data['usr_permissions']));
@@ -87,7 +87,7 @@ if(isset($_POST['submitted']))
 	$query = "INSERT INTO access_log (acc_ip, acc_proxy_ip, acc_username, acc_success) 
 				   VALUES (:ip, :proxy_ip, :user, :success)";
 	$params = array(array('query_key' => 0, 'params' => array('ip' => $ip, 'proxy_ip' => $proxy_ip, 'user' => $user, 'success' => $access_success)));
-	$ds_spl->execQuery($query, TRUE, $params);
+	$ds->execQuery($query, TRUE, $params);
 }
 /*------------------------------------------------------------------------------------------------------------------------*/
 
@@ -95,7 +95,7 @@ if(isset($_POST['submitted']))
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>SPL Login</title>
+	<title>Donor DB Login</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/donor_database/lib_css/standard.css">
@@ -168,4 +168,4 @@ if(isset($_POST['submitted']))
 	</div>
 </body>
 </html>
-<?php $ds_spl->closeDataSource(); ?>
+<?php $ds->closeDataSource(); ?>
