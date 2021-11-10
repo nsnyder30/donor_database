@@ -19,3 +19,6 @@ user: test_user
 password: test_password
 
 Which can be updated in the db_users table of your MySQL database. When creating new users, use the MD5() mysql function to hash their passwords.
+
+## Sample Site
+You can view a sample of the donor database with test data at <a href="https://metdatmgmt.com/donor_database/utils/login.php" target="_blank">This Link</a>. To login, username="test_user", password="test_pw".
