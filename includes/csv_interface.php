@@ -4,19 +4,16 @@
 //------------------------------------------------------------------------------------------------------------------------//
 
 
-//-------------------------------------------------------USAGE------------------------------------------------------------//
+//---------------------------------------------------------USAGE----------------------------------------------------------//
 # 		$CSV = new csv_interface($file_path)
-#			$file_prefix - Full directory path of CSV file to be edited.
+#			$file_path - Full directory path of CSV file to be edited.
 #
 #		$array = $CSV->fetch_data()
-#			Reads CSV data into an associative array and passes it to $array variables
+#			Reads CSV data into an associative array and passes it to $array variable
 #
 #		$CSV->wrtie_data($array)
 #			$array - An associative array representing a table. Each row must contain scalar values (strings or numbers, no arrays)
-#
-#		$CSV->edit_form()
-#			Prints javascript and an HTML form to allow the user to edit the CSV directly in the web browser.
-//------------------------------------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------------------------------//
 
 class csv_interface
 {
@@ -28,7 +25,7 @@ class csv_interface
 	private $np_regex = NULL;
 	private $csv_data = NULL;
 		
-	//--------------------------------------------DEFINE CONSTRUCTOR FUNCTION-------------------------------------------------//
+	//--------------------------------------------DEFINE CONSTRUCTOR FUNCTION---------------------------------------------//
 	public function __construct($file_name, $headers = TRUE)
 	{
 		$this->cleanup_regex = '/[^,"]/';
@@ -43,10 +40,10 @@ class csv_interface
 		}
 		$this->read_data();
 	}
-	//------------------------------------------------------------------------------------------------------------------------//
+	//--------------------------------------------------------------------------------------------------------------------//
 	
 	
-	//-------------------------------------PASSES CSV DATA INTO ASSOCIATIVE ARRAY---------------------------------------------//
+	//---------------------------------------PASSES CSV DATA INTO ASSOCIATIVE ARRAY---------------------------------------//
 	private function read_data()
 	{
 		$data_array = array();
@@ -118,19 +115,19 @@ class csv_interface
 			unset($rows);
 		}
 	}
-	//------------------------------------------------------------------------------------------------------------------------//
+	//--------------------------------------------------------------------------------------------------------------------//
 
 
 
-	//----------------------------------------------PASS CSV DATA TO USER-----------------------------------------------------//
+	//-----------------------------------------------PASS CSV DATA TO USER------------------------------------------------//
 	public function fetch_data()
 	{
 		return $this->csv_data;
 	}
-	//------------------------------------------------------------------------------------------------------------------------//	
+	//--------------------------------------------------------------------------------------------------------------------//
 	
 	
-	//-------------------------------------------OVERWRITE FILE WITH NEW DATA-------------------------------------------------//
+	//--------------------------------------------OVERWRITE FILE WITH NEW DATA--------------------------------------------//
 	public function write_data($assoc_array)
 	{
 		if($this->use_headers)
@@ -151,171 +148,19 @@ class csv_interface
 		fclose($file);
 		$this->read_data();
 	}
-	//------------------------------------------------------------------------------------------------------------------------//	
+	//--------------------------------------------------------------------------------------------------------------------//
 
 
 
-	//---------------------------------------RETRIEVE LAST FILE MODIFICATION TIME---------------------------------------------//
+	//----------------------------------------RETRIEVE LAST FILE MODIFICATION TIME----------------------------------------//
 	public function get_fmod_time()
 	{
 		return filemtime($this->fname);		
 	}
-	//------------------------------------------------------------------------------------------------------------------------//	
+	//--------------------------------------------------------------------------------------------------------------------//
 
 
-	//-----------------------------------------PRINT HTML FORM FOR EDITING DATA-----------------------------------------------//
-	// Requires jQuery
-	public function edit_form()
-	{
-		$table_name = 'csv_table_'.date('YmdHis');
-		$this->read_data();
-		?>
-		<script type="text/javascript">
-			function update_data()
-			{
-				var obj = {file_name: $('#file_name').html()};
-				var csv_data = [];
-				var row_data = {};
-				$('.data_row').each(function(){
-					row_data = {};
-					$(this).find('.data_point').each(function(){
-						row_data[$(this).data('header')] = $(this).val();
-					});
-					csv_data.push(row_data)
-				});
-
-				obj['csv_data'] = JSON.stringify(csv_data);
-				var ajWRITECSV = $.ajax({
-					url: '/rtd/plugins/includes/write_csv.php', 
-					method: 'POST', 
-					data: $.param(obj)
-				});
-				
-				ajWRITECSV.done(function(data, status){
-					console.log(data);
-				});
-				
-				ajWRITECSV.fail(function(xhr, status, err){
-					var err_msg = status+": "+err;
-					console.log(err_msg);
-				});
-			}
-			
-			function add_column()
-			{
-				var header_count = 0;
-				var col_name = '';
-				if($('.col_delete').length > 0)
-				{
-					if($('.header_row').length > 0)
-						{col_name = $('#col_name').val();}
-					else
-						{col_name = $('.data_row:first td:last').children('input').data('header') + 1;}
-					
-					$('.col_delete td:last').after('<td data-header="'+col_name+'"><button onclick="delete_column(\''+col_name+'\');">Delete Col</button></td>');
-				}
-				if($('.header_row').length > 0)
-				{
-					col_name = $('#col_name').val();
-					$('.header_row th:last').after('<th data-header="'+col_name+'">'+col_name+'</th>');
-					$('.data_row').each(function(){
-						$(this).children('td:last').after('<td class="'+col_name+'" data-header="'+col_name+'"><input type="text" class="data_point" data-header="'+col_name+'"></td>');
-					});
-				} else {
-					$('.data_row').each(function(){
-						header_count = $(this).children('td:last').children('input').data('header')+1;
-						$(this).children('td:last').after('<td><input type="text" class="data_point" data-header="'+header_count+'"></td>');
-					});
-				}
-			}
-			
-			function add_row(table_name)
-			{
-				var new_row = '<tr class="data_row"><td class="row_delete"><button onclick="delete_row();">Delete Row</button></td>';
-				var i = 0;
-				if($('.header_row').length > 0)
-				{
-					$('.header_row:first th').each(function(){
-						new_row += '<td class="'+$(this).html()+'">';
-						new_row += '<input type="text" class="data_point" data-header="'+$(this).html()+'"></td>';
-					});
-					new_row += '</tr>';
-				} else {
-					i = 0;
-					$('.data-row:last td').each(function(){
-						new_row += '<td><input type="text" class="data_point" data-header="'+i+'"></td>';
-						i++;
-					});
-					new_row += '</tr>';
-				}
-				$(table_name).append(new_row);				
-			}
-			
-			function delete_row()
-			{
-				var target = event.target;
-				target = $(target).parents('tr');
-				$(target).remove();
-			}
-			
-			function delete_column(header)
-			{
-				$('[data-header="'+header+'"]').each(function(){
-					$(this).remove();
-				});
-			}
-		</script>
-		
-		<div id="file_name" style="display:none"><?php echo $this->fname; ?></div>
-		<div id="buttons" style="margin-bottom: 10px; margin-top: 10px;">
-			<button onclick="update_data();">Update CSV</button>
-			&nbsp;<button onclick="add_row('<?php echo '#'.$table_name; ?>');">Add Row</button>
-			&nbsp;<button onclick="add_column();">Add Column</button>
-			<input type="text" id="col_name"></input>
-		</div>
-		<div class="default_style">
-		<table id="<?php echo $table_name; ?>" class="csv_table">
-		<?php
-		echo '<tr class="col_delete"><td></td>';
-		foreach(current($this->csv_data) as $header => $value)
-		{
-			echo '<td data-header="'.$header.'"><button onclick="delete_column(\''.$header.'\');">Delete Col</button></td>';
-		}
-		echo '</tr>';
-		if($this->use_headers)
-		{
-			echo '<tr class="header_row"><td class="row_delete"></td>';
-			foreach($this->headers as $na => $header)
-			{
-				echo '<th data-header="'.$header.'">'.$header.'</th>';
-			}
-			echo '</tr>';
-		}
-		$skip_line = TRUE;
-		foreach($this->csv_data as $na => $array)
-		{
-			echo '<tr class="data_row">';
-			echo '<td class="row_delete"><button onclick="delete_row();">Delete Row</button></td>';
-			foreach($array as $header => $value)
-			{
-				$input_hdr = ' data-header="'.$header.'"';
-				if($this->use_headers)
-					{$td_class = ' class="'.$header.'"';} 
-				else 
-					{$td_class = '';}
-
-				echo '<td'.$td_class.' data-header="'.$header.'">';
-				echo '<input type="text" class="data_point"'.$input_hdr.' value="'.htmlspecialchars($value).'">';
-				echo '</td>';
-			}
-			echo '</tr>';
-		}
-		echo '</table></div>';
-	}
-	//------------------------------------------------------------------------------------------------------------------------//	
-	
-
-	//----------------------------------CLEAR OUT OBJECT VARIABLES, DEFINE DESTRUCTOR-----------------------------------------//
+	//-----------------------------------CLEAR OUT OBJECT VARIABLES, DEFINE DESTRUCTOR------------------------------------//
 	public function cleanup_csv()
 	{
 		$this->csv_data = NULL;
@@ -327,6 +172,6 @@ class csv_interface
 	{
 		$this->cleanup_csv();
 	}
-	//------------------------------------------------------------------------------------------------------------------------//	
+	//--------------------------------------------------------------------------------------------------------------------//
 }
 ?>
