@@ -1,21 +1,21 @@
 <?php
 session_start();
-/*---------------------------------------------------DECLARE CONSTANTS----------------------------------------------------*/
+//---------------------------------------------------DECLARE CONSTANTS----------------------------------------------------//
 $input_clean_regex = '[^A-Za-z0-9\!\@\#\$\%\^\&\*\(\)\-\_]';
-/*------------------------------------------------------------------------------------------------------------------------*/
+//------------------------------------------------------------------------------------------------------------------------//
 
 
-/*------------------------------------------------DEFAULT CLASS INCLUSIONS------------------------------------------------*/
-// dataSource: Handles connections to databases.
-// csv_interface: Conversion from CSV data to 2D associative arrays
+//------------------------------------------------DEFAULT CLASS INCLUSIONS------------------------------------------------//
+// dataSource: Handles connections to databases
+// csv_interface: Converts data between CSV format and 2D associative arrays
 $GLOBALS['cfg_file'] = "C:/xampp/php/connections.ini";
 
 if(!class_exists('dataSource')){include($_SERVER['DOCUMENT_ROOT'] . '/donor_database/includes/datasource.php');}
 if(!class_exists('csv_interface')){include($_SERVER['DOCUMENT_ROOT'] . '/donor_database/includes/csv_interface.php');}
-/*------------------------------------------------------------------------------------------------------------------------*/
+//------------------------------------------------------------------------------------------------------------------------//
 
 
-/*-----------------------------------------------CHECK FOR AUTHORIZED USER------------------------------------------------*/
+//-----------------------------------------------CHECK FOR AUTHORIZED USER------------------------------------------------//
 $file = str_replace('\\', '/', __FILE__);
 $page = current(array_slice(explode('/', $_SERVER['REQUEST_URI']), -1, 1));
 $page = current(explode('?', $page));
@@ -26,20 +26,20 @@ if((!isset($_SESSION['ddb_user']) || !isset($_SESSION['permissions']) || count($
 	header('Location: /donor_database/utils/login.php');	
 	exit();
 }
-/*------------------------------------------------------------------------------------------------------------------------*/
+//------------------------------------------------------------------------------------------------------------------------//
 
 
-/*---------------------------------------------------SET ERROR HANDLING---------------------------------------------------*/
+//---------------------------------------------------SET ERROR HANDLING---------------------------------------------------//
 set_error_handler('err_default');
 
 function err_default($errno, $errstr, $errfile, $errline)
 {
 	echo json_encode(array('err_no' => $errno, 'err_text' => $errstr, 'err_file' => $errfile, 'err_line_number' => $errline));
 }
-/*------------------------------------------------------------------------------------------------------------------------*/
+//------------------------------------------------------------------------------------------------------------------------//
 
 
-/*-------------------------------------------------DEFINE CUSTOM FUNCTIONS------------------------------------------------*/
+//-------------------------------------------------DEFINE CUSTOM FUNCTIONS------------------------------------------------//
 // testprint_table: Quickly print 2D associative array as formatted HTML table
 if(!function_exists('testprint_table'))
 {
