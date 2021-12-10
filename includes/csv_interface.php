@@ -12,7 +12,8 @@
 #			Reads CSV data into an associative array and passes it to $array variable
 #
 #		$CSV->wrtie_data($array)
-#			$array - An associative array representing a table. Each row must contain scalar values (strings or numbers, no arrays)
+#			$array - An associative array representing a table. Each row must contain scalar 
+#				 values (strings or numbers, no arrays)
 //-----------------------------------------------------------------------------------------------------------------------//
 
 class csv_interface
