@@ -1,9 +1,12 @@
 <?php
+//----------------------------------------------------DESCRIPTION---------------------------------------------------------//
+# This plugin defines a class for establishing connectiosn to various datasources. 
+# This is primarily used for MySQL database connections.
+//------------------------------------------------------------------------------------------------------------------------//
+
 class dataSource
 {
-/*------------------------------------------------------------------------------------------------------------------------*/
-// Defines a class for establishing connectiosn to various datasources. This is primarily used for MySQL database
-// connections.
+	//-----------------------------------------------DEFINE CLASS VARIABLES-----------------------------------------------//
 	private $source_array = array();
 	private $connection;
 	private $conntype;
@@ -11,11 +14,13 @@ class dataSource
 	public $source;
 	public $result;
 	public $err_message;
+	//--------------------------------------------------------------------------------------------------------------------//
+
+
+	//--------------------------------------------DEFINE CONSTRUCTOR FUNCTION---------------------------------------------//
+	// Takes an input source as a string and reads the corresponding connection credentials from the dataSource class. 
+	// It then attempts to establish a connection and returns an error if the connection can't be established.
 	function __construct($inputsource, $err_mode = 'html') {
-		/*----------------------------------------------------------------------------------------------------------------*/
-		// Constructor: Takes an input source as a string and reads the corresponding connection credentials
-		// 			   from the dataSource class. It then attempts to establish a connection and returns
-		//			   an error if the connection can't be established.
 		$this->source = $inputsource;
 		$creds = parse_ini_file($GLOBALS['cfg_file'], TRUE, INI_SCANNER_RAW)[$inputsource];
 		$this->conntype = $creds['conntype'];
@@ -49,14 +54,15 @@ class dataSource
 		}	 else {
 
 		}	
-		/*----------------------------------------------------------------------------------------------------------------*/
 	}
+	//--------------------------------------------------------------------------------------------------------------------//
 	
+
+	//----------------------------------------------FUNCTION: EXECUTE QUERY-----------------------------------------------//
+	// Takes an input query as text and attempts to execute using established connection. 
+	// Returns error text with query information if the query fails or returns no results.
 	public function execQuery($query, $multi_query = FALSE, $params = array())
 	{
-		/*----------------------------------------------------------------------------------------------------------------*/
-		// Query Executor: Takes an input query as text and attempts to execute using established connection. 
-		// Returns error text with query information if the query fails or returns no results.
 		$this->result = NULL;
 		$this->multi_query = $multi_query;
 		if($multi_query)
@@ -162,14 +168,13 @@ class dataSource
 					trigger_error('Connection type not recognized: '.$this->conntype);
 			}		
 		}
-		/*----------------------------------------------------------------------------------------------------------------*/
 	}
+	//--------------------------------------------------------------------------------------------------------------------//
+
 	
+	//--------------------------------------------FUNCTION: FETCH QUERY RESULTS-------------------------------------------//
 	function fetchArray()
 	{
-		/*----------------------------------------------------------------------------------------------------------------*/
-		// Array Return Function: Once a query has been executed, return each row of the resultant dataset.
-		//						  Check if result exists first.
 		switch($this->conntype)
 		{
 			case 'MySQL':
@@ -233,13 +238,13 @@ class dataSource
 				trigger_error('Connection type not recognized: '.$this->conntype);
 				return FALSE;
 		}
-		/*----------------------------------------------------------------------------------------------------------------*/
 	}
+	//--------------------------------------------------------------------------------------------------------------------//
+
+
+	//---------------------------------------------FUNCTION: CLOSE CONNECTION---------------------------------------------//
 	function closeDataSource()
 	{
-		/*----------------------------------------------------------------------------------------------------------------*/
-		// Closing Function: Determines if a result has been retrieved and clears the result, then closes
-		//					 the connection to the datasource.
 		switch($this->conntype)
 		{
 			case 'MySQL':
@@ -255,8 +260,7 @@ class dataSource
 				$this->connection = null;
 				trigger_error('Connection type not recognized: '.$this->conntype);
 		}
-		/*----------------------------------------------------------------------------------------------------------------*/
 	}
-		/*----------------------------------------------------------------------------------------------------------------*/
+	//--------------------------------------------------------------------------------------------------------------------//
 }
 ?>
