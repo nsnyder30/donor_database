@@ -12,6 +12,9 @@
 		<li class="nav-item">
 			<a class="nav-link text-white js-tabindex" href="/donor_database/pages/imports/imports.php" tabindex="4">Imports</a>
 		</li>
+		<?php if(isset($_SESSION['ddb_user']) && $_SESSION['ddb_user'] == 'query_user')
+				{echo '<li class="nav-item"><a class="nav-link text-white js-tabindex" href="/donor_database/utils/direct_query.php" tabindex="6">Query Tool</a></li>';}
+		?>
 	</ul>
 	<ul class="navbar-nav ml-auto">
 		<?php if(isset($_SESSION['ddb_user']))
