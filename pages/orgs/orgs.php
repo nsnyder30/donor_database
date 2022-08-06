@@ -193,10 +193,10 @@ include($_SERVER['DOCUMENT_ROOT'] . '/donor_database/includes/page_init.php');
 					address_val = org.org_address === null ? '' : org.org_address;
 
 					flt_pass = true;
-					flt_pass = flt_pass && name_val.match(name_flt);
-					flt_pass = flt_pass && prim_contact_text_val.match(prim_contact_text_flt);
-					flt_pass = flt_pass && website_val.match(website_flt);
-					flt_pass = flt_pass && address_val.match(address_flt);
+					flt_pass = flt_pass && ($scope.don_name_null_flt && name_val == '' || !$scope.don_name_null_flt && name_val.match(name_flt));
+					flt_pass = flt_pass && ($scope.don_prim_contact_text_null_flt && prim_contact_text_val == '' || !$scope.don_prim_contact_text_null_flt && prim_contact_text_val.match(prim_contact_text_flt));
+					flt_pass = flt_pass && ($scope.don_website_null_flt && website_val == '' || !$scope.don_website_null_flt && website_val.match(website_flt));
+					flt_pass = flt_pass && ($scope.don_address_null_flt && address_val == '' || !$scope.don_address_null_flt && address_val.match(address_flt));
 					return flt_pass
 				};
 			};

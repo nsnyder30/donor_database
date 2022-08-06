@@ -273,8 +273,8 @@ include($_SERVER['DOCUMENT_ROOT'] . '/donor_database/includes/page_init.php');
 					thankyou_val.setTime(thankyou_val.getTime() + 8*60*60*1000);
 
 					flt_pass = true;
-					flt_pass = flt_pass && stype_val.match(stype_flt);
-					flt_pass = flt_pass && source_val.match(source_flt);
+					flt_pass = flt_pass && ($scope.don_stype_null_flt && stype_val == '' || !$scope.don_stype_null_flt && stype_val.match(stype_flt));
+					flt_pass = flt_pass && ($scope.don_source_null_flt && source_val == '' || !$scope.don_source_null_flt && source_val.match(source_flt));
 					flt_pass = flt_pass && (don.don_amount == null || (don.don_amount >= $scope.don_amount_flt_min && don.don_amount <= $scope.don_amount_flt_max));
 					flt_pass = flt_pass && (don.don_count == null || (don.don_count >= $scope.don_count_flt_min && don.don_count <= $scope.don_count_flt_max));
 					flt_pass = flt_pass && (don.don_sum == null || (don.don_sum >= $scope.don_sum_flt_min && don.don_sum <= $scope.don_sum_flt_max));
